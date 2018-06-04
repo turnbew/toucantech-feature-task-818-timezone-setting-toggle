@@ -1,22 +1,25 @@
-TASK (HARD) DATE: 01.11.2017 - 16.11.17
+FOR PRIVACY AND CODE PROTECTING REASONS THIS IS A SIMPLIFIED VERSION OF CHANGES AND NEW FEATURES
+
+TASK DATE: 01.11.2017 - 16.11.17
+
+TASK LEVEL: (HARD)  
 
 TASK SHORT DESCRIPTION: 818 (Timezone setting toggle)
 
 GITHUB REPOSITORY CODE: feature/task-818-timezone-setting-toggle
 
-ORIGINAL WORK: https://github.com/BusinessBecause/network-site/tree/feature/task-818-timezone-setting-toggle
-
+TASK (HARD) DATE: 01.11.2017 - 16.11.17
 
 CHANGES
  
 	IN FILES: 
 	
-		\network-site\system\codeigniter\language\english\db_lang.php
+		db_lang.php
 		
 			ADDED LINE: $lang['db_value_field_table_exist'] = 'Value, field name or db table name exists.';
 			
 		
-		\network-site\system\codeigniter\database\DB_query_builder.php
+		DB_query_builder.php
 		
 			ADDE CODE: 
 			
@@ -41,16 +44,7 @@ CHANGES
 					}
 					
 					if ($addtional_where == '') {
-						$query = $this->db->select('count (*) as c')
-											->from($table_name)
-											->where($field_name, $value)
-											->get();
-					} 
-					else {
-						$query = $this->db->select('count (*) as c')
-											->from($table_name)
-											->where($field_name, $value)
-											->get($addition_where);
+						...............
 					}
 					
 					$result = $query->row_array();
@@ -59,7 +53,7 @@ CHANGES
 				}
 				
 	
-		\network-site\addons\default\modules\network_settings\language\english\network_settings_lang.php
+		network_settings_lang.php
 		
 			ADDED lines: 
 				
@@ -68,7 +62,7 @@ CHANGES
 				$lang['newsletters:instructions:send_on_timezone'] = 'Scheduled e-mail will be sent in determined time zone.';
 	
 	
-		ADDED new file (with folder structure): \network-site\system\cms\modules\streams_core\field_types\timezone\field.timezone.php
+		ADDED new file (with folder structure): field.timezone.php
 	
 			RELEVANT CODE IN IT: 
 			
@@ -89,25 +83,20 @@ CHANGES
 					$this->load->helper('our_timezone'); 	// from addons\shared_addons\helpers\ folder
 					$this->load->helper('our_form');		// from addons\shared_addons\helpers\ folder
 					
-					if ( ! $data['value'] and ! $entry_id)
-					{
-						$selected = (isset($field->field_data['default_value'])) ? $field->field_data['default_value'] : get_system_timezone();
-					}
-					else
-					{
-						$selected = $data['value'];
+					if ( ! $data['value'] and ! $entry_id) {
+						....................
 					}
 					
 					return form_chosen($data['form_slug'], get_timezone_options(), $selected, array('extra' => 'class="form-control"', 'required' => true));
 					
 				}
 	
-		\network-site\system\cms\core\MY_Controller.php
+		MY_Controller.php
 		
 			ADDED CODE: $this->load->helper$this->load->helper(array('our_timezone')); //inside __construct function
 			
 	
-		\network-site\addons\default\modules\network_settings\controllers\members.php
+		members.php
 			
 			//Inside index function
 			
@@ -154,14 +143,14 @@ CHANGES
 				
 				ADDED CODE: convert_datetime_by_timezone($data);		
 				
-		\network-site\system\cms\config\config.php
+		config.php
 
 			ADDED CODE: 
 			
 				define('default_time_format', 'd-m-Y H:i:s');
 				define('default_system_timezone', 'Europe/London');
 		
-		\network-site\addons\default\modules\network_settings\controllers\payment_accounts.php
+		payment_accounts.php
 		
 			CHANGED CODE: 
 			
@@ -173,7 +162,7 @@ CHANGES
 				
 					$this->data->accounts = convert_datetime_by_timezone($this->payment_accounts_m->get_all());
 	
-		\network-site\addons\default\modules\network_settings\views\general_settings\general_setups.php
+		general_setups.php
 		
 			ADDED CODE: 
 			
@@ -187,7 +176,7 @@ CHANGES
 				</div>				
 	
 	
-		\network-site\addons\default\modules\network_settings\views\content\events_form.php
+		events_form.php
 	
 			ADDED/CHANGED CODE:
 			
@@ -202,16 +191,16 @@ CHANGES
 *		//inside function view_galleries  ADDED CODE: convert_datetime_by_timezone($galleries);
 			
 		
-		\network-site\addons\default\modules\history\controllers\history.php
+		history.php
 		
 			//inside function index  ADDED CODE: convert_datetime_by_timezone($recent_users);
 		
-		\network-site\addons\default\modules\bbusers\plugin.php
+		plugin.php
 		
 			//inside function most_recent_users  ADDED CODE: convert_datetime_by_timezone($most_recent);
 		
 
-		\network-site\addons\default\modules\messaging\controllers\messaging.php
+		messaging.php
 		
 			//inside function inbox  ADDED CODE: convert_datetime_by_timezone($messages);
 			//inside function archived  ADDED CODE: convert_datetime_by_timezone($messages);
@@ -219,12 +208,12 @@ CHANGES
 			//inside function read  ADDED CODE: convert_datetime_by_timezone($messages);
 			//inside function sent  ADDED CODE: convert_datetime_by_timezone($messages);
 
-		\network-site\addons\default\modules\messaging\models\spam_notifications.php
+		spam_notifications.php
 
 			CHANGED CODE: 
 				FROM: public function get() TO: public function get($id = 0) //I just give an not use parameter to the function
 
-		\network-site\addons\default\modules\connections\controllers\connections.php
+		connections.php
 		
 			//inside function index  
 				
@@ -239,7 +228,7 @@ CHANGES
 					convert_datetime_by_timezone($outstanding_requests);
 
 
-		\network-site\addons\default\modules\news\controllers\news.php
+		news.php
 		
 			//inside function _display_comments  ADDED CODE: convert_datetime_by_timezone($data);
 			//inside function _news_sidebar  ADDED CODE: convert_datetime_by_timezone($data);
@@ -254,7 +243,7 @@ CHANGES
 			
 			
 			
-		\network-site\addons\default\modules\bbevents\controllers\bbevents.php
+		bbevents.php
 		
 			//inside function view  ADDED CODE: convert_datetime_by_timezone($event);
 			//inside function index  ADDED CODE: 
@@ -266,52 +255,52 @@ CHANGES
 			//inside function event_sign_up  ADDED CODE: convert_datetime_by_timezone($event);
 			
 		
-		\network-site\addons\default\modules\bbevents\controllers\because_events.php
+		because_events.php
 		
 			//inside function ajax_list  ADDED CODE: convert_datetime_by_timezone($events);
 			//inside function view  ADDED CODE: convert_datetime_by_timezone($event);
 			
 		
-		\network-site\addons\default\modules\network_settings\controllers\fundraising.php
+		fundraising.php
 			
 			//inside function donations  ADDED CODE: convert_datetime_by_timezone($payments, array('payment_date_received' => 'd-m-Y'));
 			//inside function donationdetails  ADDED CODE: convert_datetime_by_timezone($payment);
 			//inside function mysupport  ADDED CODE: convert_datetime_by_timezone($recent_donations);
 	
-		\network-site\addons\default\modules\network_settings\controllers\activity_tracker.php
+		activity_tracker.php
 			
 			//inside function index  ADDED CODE:  convert_datetime_by_timezone($activities);
 			
 	
-		\network-site\addons\default\modules\network_settings\controllers\documents.php
+		documents.php
 		
 			//inside function index  ADDED CODE:  convert_datetime_by_timezone($documents['data']);
 	
-		\network-site\system\cms\libraries\Streams\drivers\Streams_ap.php
+		Streams_ap.php
 		
 			//inside function entries_table  ADDED CODE:  convert_datetime_by_timezone($data['entries']);
 	
-		\network-site\addons\default\modules\network_settings\controllers\activity_tracker.php
+		activity_tracker.php
 			
 			//inside function index  ADDED CODE:  convert_datetime_by_timezone($activities);
 			
 	
-		\network-site\addons\default\modules\network_settings\controllers\email_center.php
+		email_center.php
 			
 			//inside function index  ADDED CODE:  convert_datetime_by_timezone($this->data);
 			
 	
-		\network-site\addons\default\modules\network_settings\controllers\messages.php
+		messages.php
 			
 			//inside function index  ADDED CODE:  convert_datetime_by_timezone($messages);
 			//inside function view_thread  ADDED CODE:  convert_datetime_by_timezone($messages);
 		
-		\network-site\addons\default\modules\network_settings\controllers\shop\admin_orders.php
+		admin_orders.php
 		
 			//inside function index  ADDED CODE:  convert_datetime_by_timezone($this->data);
 	
 	
-		\network-site\addons\default\modules\network_settings\controllers\content.php
+		content.php
 		
 			//inside function index  ADDED CODE:  convert_datetime_by_timezone($news);			
 			//inside function announcements ADDED CODE: convert_datetime_by_timezone($news);
@@ -333,7 +322,7 @@ CHANGES
 					->set('default_timezone_selected', $default_timezone_selected) 
 							
 	
-		\network-site\addons\default\modules\network_settings\controllers\general_settings.php
+		general_settings.php
 		
 			ADDED CODE 1: 
 				
@@ -368,7 +357,7 @@ CHANGES
 				
 					$this->data['updated_on'] = get_datetime_by_timezone($item->updated_on);
 	
-		ADDED NEW FILE: \network-site\addons\shared_addons\helpers\our_timezone_helper.php
+		ADDED NEW FILE: our_timezone_helper.php
 
 			CODE IN IT: 
 			
@@ -499,54 +488,7 @@ CHANGES
 					function convert_datetime_by_timezone(&$object, $field_and_formats = array(), $timezone = default_timezone) 
 					{			
 						$l = count($field_and_formats);
-						if ($l == 0 or ($l > 0 and $l < 20)) 
-						{
-							//20 is the length of $fields array below, if you put more or take away some field, this number must be changed 
-							//define an array which contains the commonly used coloumn names of date fields in database (so far)
-							$fields = array(
-								'created' => default_time_format, 
-								'created_on' => default_time_format, 
-								'updated' => default_time_format, 
-								'updated_on' => default_time_format, 
-								'last_login' => default_time_format, 
-								'start' => default_time_format, 
-								'finish' => default_time_format, 
-								'date' => default_time_format, 
-								'last_edited' => default_time_format, 
-								'created_at' => default_time_format, 
-								'uploaded' => default_time_format, 
-								'payment_date_received' => default_time_format, 
-								'gift_acknowledgement_date' => default_time_format, 
-								'hmrc_submitted_date' => default_time_format, 
-								'hmrc_received_date' => default_time_format,
-								'end_date_start' => default_time_format,
-								'end_date_finish' => default_time_format,
-								'date_start' => default_time_format,
-								'date_finish' => default_time_format,
-								'actioned_on' => default_time_format,
-							);
-							
-							//redefine date format in $fields array by $field_and_formats value 
-							foreach ($field_and_formats as $field => $format) $fields[$field] = $format;
-
-							$field_and_formats = $fields;
-						}
-
-						foreach($object as $key => &$mix) 
-						{
-							if (is_array($mix) or is_object($mix)) 
-							{	
-								//Recursive call if $mix is an object or array
-								convert_datetime_by_timezone($mix, $field_and_formats, $timezone);	
-							}
-							else if (array_key_exists((string)$key, $field_and_formats)) 
-							{
-								//$format = (isset($formats[$key])) ? $formats[$key] : default_time_format;
-								(is_object($object))
-										? $object->$key = get_datetime_by_timezone($mix, $timezone, "", $field_and_formats[$key])
-										: $object[$key] = get_datetime_by_timezone($mix, $timezone, "", $field_and_formats[$key]); 
-							}
-						}		
+						...............
 					}
 
 				} //END !function_exists('convert_datetime_by_timezone')	
@@ -609,12 +551,7 @@ CHANGES
 						$timezones = array();
 						foreach ($timezone_regions as $name => $mask)
 						{
-							$zones = DateTimeZone::listIdentifiers($mask);
-							foreach($zones as $timezone)
-							{						
-								$zone_date = get_datetime_by_timezone("now", $timezone, "object");
-								$timezones[$timezone] = $zone_date->getOffset();
-							}
+							...............
 						}			
 					}
 
@@ -647,29 +584,7 @@ CHANGES
 						$timezones = array();
 						foreach ($timezone_regions as $name => $mask)
 						{
-							$zones = DateTimeZone::listIdentifiers($mask);
-							foreach($zones as $timezone)
-							{
-								$zone_time = new DateTime(NULL, new DateTimeZone($timezone));						
-
-								$zone_date = get_datetime_by_timezone("now", $timezone, "object");
-
-								$utc_offset = $zone_date->getOffset();
-								$utc_offset_hour = floor($utc_offset / 3600);
-								$utc_offset_hour_abs = abs($utc_offset_hour);
-								$utc_offset_rest_min = (($utc_offset - ($utc_offset_hour * 3600))/60);			
-								$utc = " - UTC" . 
-										(($utc_offset_hour < 0) ? "-" : "+") . 									//- or + timezone
-										(($utc_offset_hour_abs >= 10) ? "" : "0") . $utc_offset_hour_abs .  	//display hours
-										":" . 																	//hours and minutes seperator
-										(($utc_offset_rest_min == 0) ? "00" : $utc_offset_rest_min);			//display minutes
-							
-								$am_pm = $zone_time->format('H') > 12 
-												? ' ('. $zone_time->format('g:i a'). ')' 
-												: '';
-								
-								$timezones[$name][$timezone] = substr($timezone, strlen($name) + 1) . ' - ' . $zone_time->format('H:i') . $am_pm . " " . $utc;
-							}
+							...............
 						}			
 						
 						$timezone_options = array();
@@ -800,9 +715,9 @@ CHANGES
 
 			
 						
-		NOTE: \network-site\addons\default\modules\firesale\details.php - REMOVED everything from here to the network_settings\details.php file
+		NOTE: firesale\details.php - REMOVED everything from here to the network_settings\details.php file
 		
-		\network-site\addons\default\modules\network_settings\details.php
+		network_settings\details.php
 		
 			ADDED CODE 1:
 			
@@ -814,85 +729,7 @@ CHANGES
 					
 					$this->_install_general_setups_table($this->_install_general_setups_added_records());
 
-					//Add currency_name field to the firesale_orders table if not exists
-					$this->_insert_new_currency_name_field('firesale_orders', 'shipping');
-					
-					//Add currency_name field to the event_registrations table if not exists
-					$this->_insert_new_currency_name_field('event_registrations', 'gateway_account');
-
-					//Update default_fundraising_payments table
-					$this->db->set('payment_currency', 'GBP')->where('payment_currency', NULL)->update($this->db->dbprefix('fundraising_payments'));
-					$this->db->set('default_payment_currency', 'GBP')->where('default_payment_currency', NULL)->update($this->db->dbprefix('fundraising_payments'));			
-
-					//change time_zone coloumn varchar size to (50)
-					$this->db->query('ALTER TABLE ' . $this->db->dbprefix('events') . ' MODIFY COLUMN time_zone VARCHAR(50)');	
-
-					//get helper transformation array form shared_addons/helpers/our_timezone_helper
-					$ttt = get_timezone_transformation_table(); 
-
-					//Update old timezone values to new one in two tables (events and because_events)
-					$this->_update_timezones($this->db->dbprefix('events'), 'time_zone', $ttt);
-					$this->_update_timezones($this->db->dbprefix('because_events'), 'time_zone', $ttt);
-
-					//Add new field to the newsletters_newsletters table (send_on_timezone) and set the value to the system timezone, where send_on is not null
-					if (!$this->db->field_exists('send_on_timezone', $this->db->dbprefix('newsletters_newsletters'))) 
-					{
-						$sql = 	"ALTER TABLE  " . $this->db->dbprefix('newsletters_newsletters') . 
-								"	ADD COLUMN send_on_timezone VARCHAR(50) NULL " . 
-								"	AFTER send_on";
-						
-						if (! $this->db->query($sql)) return false;
-						
-						$this->db->set('send_on_timezone', get_system_timezone())
-								 ->where('send_on IS NOT NULL', NULL, false)
-								 ->where('send_on !=', '0000-00-00 00:00:00')
-								 ->update($this->db->dbprefix('newsletters_newsletters'));
-					}
-					
-					//Add new newsletters fields to data_fields table
-					if (!$this->db->value_exists('send_on_timezone', 'field_slug', $this->db->dbprefix('data_fields'), 'field_namespace = "newsletters"')) 
-					{
-						//Add new field to newsletters newsletters stream
-						$fields = array(
-							array(
-							'name' 		=> 'lang:newsletters:send_on_timezone:label',
-							'slug'		=> 'send_on_timezone',
-							'namespace'	=> 'newsletters',
-							'type'		=> 'timezone' 
-							)
-						);
-						$this->streams->fields->add_fields($fields);
-						$field_id = $this->db->insert_id();
-					}
-					else 
-					{
-						$query = $this->db->select('id')
-									->where('field_slug', 'send_on_timezone')
-									->where('field_namespace', 'newsletters')
-									->get($this->db->dbprefix('data_fields'));
-						$result = $query->result_array();
-						$field_id = $result[0]['id'];
-					}
-					
-					//Insert data into data_field_assignments table
-					if (!$this->db->value_exists($field_id, 'field_id', $this->db->dbprefix('data_field_assignments'), 'stream_id = "6"')) 
-					{
-						//Set order in data_field_assignments table first
-						$this->db->set('sort_order', 'sort_order+1', FALSE)
-									->where('sort_order >', 20)
-									->where('stream_id', 6)
-									->update($this->db->dbprefix('data_field_assignments')); 
-					
-						$data = array(
-									'sort_order' => 21,
-									'stream_id' => 6,
-									'field_id' => $field_id,
-									'is_required' => true, 
-									'is_unique' => true, 
-									'instructions' => 'lang:newsletters:instructions:send_on_timezone'
-								);
-						$this->db->insert($this->db->dbprefix('data_field_assignments'), $data);
-					}	
+					....................
 				}
 
 				//Added functions 
@@ -915,16 +752,7 @@ CHANGES
 						$table = $this->db->dbprefix('general_setups');
 						foreach ($records as $key => $record) 
 						{
-							$num = $this->db
-											->select('count(*) as num')
-											->from($table)
-											->where('slug', $record['slug'])
-											->get()
-											->row()
-											->num;		
-							if ($num == 0) {
-								$this->db->insert($table, $record);
-							}
+						.............
 						}
 					}
 				}
@@ -999,9 +827,3 @@ CHANGES
 						}				
 					}
 				}	
-	
-					
-
-
-				
-		
